@@ -1,0 +1,24 @@
+<div class="login-view">
+  <div class="logo">
+    <img src="./assets/logo-glix.png" alt="Netflix Logo" />
+  </div>
+  <div class="login-container">
+    <div class="login-card">
+      <h1>Entrar</h1>
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" (ngModelChange)="form = loginForm">
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" ngModel required placeholder="Digite seu e-mail" />
+        </div>
+        <div class="input-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" ngModel required placeholder="Digite sua senha" />
+        </div>
+        <button type="submit" [disabled]="!loginForm.form.valid">Entrar</button>
+      </form>
+      <div class="signup-link">
+        <p>Ainda não tem uma conta? <a href="#">Cadastre-se</a></p>
+      </div>
+    </div>
+  </div>
+</div>

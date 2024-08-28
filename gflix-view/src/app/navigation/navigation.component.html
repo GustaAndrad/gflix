@@ -1,0 +1,32 @@
+<nav [ngClass]="{'d-none': user == null}" [class.scrolled]="isScrolled" class="navbar">
+  <div class="navbar-logo">
+    <a href="home"><img src="./assets/logo-glix.png" alt="Netflix Logo" /></a>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="home">Home</a></li>
+    <li><a href="#">TV Shows</a></li>
+    <li><a href="#">Movies</a></li>
+    <li><a href="#">My List</a></li>
+  </ul>
+  <div class="navbar-icons">
+    <div class="search-container" #searchContainer>
+      <button class="search-button" (click)="toggleSearch()">
+        <i class="fa fa-search"></i>
+      </button>
+      <input type="text" class="search-input" [ngClass]="{'open': isOpen}" placeholder="Pesquisar..." />
+    </div>
+    <div class="user-menu">
+      <a href="#"><img
+          src="https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/9pS1daC2n6UGc3dUogvWIPMR_OU/AAAABcP2-Vh68Z5zbc7G54k3uePLa2OHBunIKOTEUVSCmgAepx_xo0iBVzo_l3bUeo9NlkDyy49F3G7EHUyjpjwVKyByVH61JBgYZBW_AjtyCTAw-U2oLWeZOiGV.jpg?r=0e2"
+          alt="User Avatar" class="avatar" /></a>
+      <div class="user-menu-content">
+        <ul>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Account</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a (click)="logout()">Sign Out</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>

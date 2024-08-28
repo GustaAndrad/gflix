@@ -1,0 +1,118 @@
+.login-view {
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 2;
+
+  img {
+    height: 40px;
+  }
+
+}
+
+/* login.component.css */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #141414;
+  background: url(https://assets.nflxext.com/ffe/siteui/vlv3/36a4db5b-dec2-458a-a1c0-662fa60e7473/79f407c4-a804-45f9-a13a-bf0a66245315/BR-pt-20240820-TRIFECTA-perspective_WEB_fa304855-b015-4f00-8619-63e1a0920714_small.jpg) no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 77%);
+  /* Filtro para escurecer a imagem */
+  z-index: 1;
+}
+
+.login-card {
+  background: #00000082;
+  color: #fff;
+  border-radius: 8px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.login-card h1 {
+  margin-bottom: 20px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 35px;
+  text-align: left;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #ddd;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 20px;
+  border: none;
+  border-radius: 4px;
+  background: #181818;
+  color: #fff;
+  font-size: 16px;
+  transition: background 0.3s, border 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border: 2px solid #fff;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background: #e50914;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #bd0710;
+}
+
+.signup-link {
+  margin-top: 20px;
+}
+
+.signup-link a {
+  color: #e50914;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.signup-link a:hover {
+  color: #f40612;
+}

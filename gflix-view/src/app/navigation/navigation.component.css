@@ -1,0 +1,151 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #141414;
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, .7) 10%, transparent);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.d-none {
+  display: none;
+}
+
+.navbar-logo img {
+  height: 35px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-links li {
+  display: inline;
+}
+
+.navbar-links a {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+  color: #b3b3b3;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-icons a,
+i {
+  color: #e5e5e5;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.navbar-icons a:hover,
+i:hover {
+  color: #b3b3b3;
+}
+
+.navbar-icons .avatar {
+  border-radius: 4px;
+  height: 32px;
+  vertical-align: middle;
+  width: 32px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.navbar.scrolled {
+  background-color: rgba(20, 20, 20, 0.9);
+  transition: background-color 0.3s ease;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.search-input {
+  width: 0;
+  opacity: 0;
+  border: 1px solid #ccc;
+  padding: 0;
+  transition: width 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.search-input.open {
+  width: 200px;
+  opacity: 1;
+  padding: 8px;
+}
+
+.user-menu {
+  position: relative;
+}
+
+.user-menu-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #00000082;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.user-menu-content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.user-menu-content ul li {
+  border-bottom: 1px solid #444;
+}
+
+.user-menu-content ul li:last-child {
+  border-bottom: none;
+}
+
+.user-menu-content ul li a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+  transition: background 0.3s;
+}
+
+.user-menu-content ul li a:hover {
+  text-decoration: underline;
+  background-color: #000000e0;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+}
+
+/* Show menu on hover */
+.user-menu:hover .user-menu-content {
+  display: block;
+}
