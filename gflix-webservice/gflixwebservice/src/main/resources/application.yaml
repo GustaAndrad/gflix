@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: gflixwebservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gflixdb
+    username: postgres
+    password: admin
+    jpa:
+      hibernate:
+        ddl-auto: update
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob.non-contextual-creation: true
+      properties:
+        hibernate:
+          show_sql: true
+tmdb:
+  api:
+    key: API-KEY-TMDB
+    url: https://api.themoviedb.org/3
