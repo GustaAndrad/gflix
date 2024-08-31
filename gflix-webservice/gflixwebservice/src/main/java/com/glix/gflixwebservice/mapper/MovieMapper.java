@@ -19,6 +19,6 @@ public class MovieMapper {
         String posterPath = json.optString("poster_path");
         String backdropPath = json.optString("backdrop_path");
 
-        return new MovieDTO(id, title, overview, posterPath, backdropPath, genreList);
+        return new MovieDTO(id, title, overview, posterPath, backdropPath, genreList, false);
     }
 }

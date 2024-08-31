@@ -11,17 +11,20 @@ public class MovieDTO {
     private String backdropPath;
     private List<String> generos;
 
+    private boolean favorite;
+
 
     public MovieDTO() {
     }
 
-    public MovieDTO(Long id, String title, String overview, String posterPath, String backdropPath, List<String> genreNames) {
+    public MovieDTO(Long id, String title, String overview, String posterPath, String backdropPath, List<String> genreNames, boolean favorite) {
         this.id = id;
         this.titulo = title;
         this.descricao = overview;
         this.posterPath = posterPath;
         this.backdropPath = backdropPath;
         this.generos = genreNames;
+        this.favorite = favorite;
     }
 
     public Long getId() {
@@ -70,6 +73,14 @@ public class MovieDTO {
 
     public void setGeneros(List<String> generos) {
         this.generos = generos;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override

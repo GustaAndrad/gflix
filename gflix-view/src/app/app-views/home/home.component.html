@@ -6,6 +6,23 @@
       <div class="swiper-slide-content">
         <img [src]="'https://image.tmdb.org/t/p/w500' + movie.posterPath" alt="{{ movie.titulo }}">
       </div>
+      <div class="actions">
+        <h4>{{movie.titulo}}</h4>
+        <div class="genres">
+          <ul>
+            <li *ngFor="let genero of movie.generos">{{genero}}</li>
+          </ul>
+        </div>
+        <hr>
+        <div class="btn-actions">
+          <button class="add-to-list">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="more-details">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
     </swiper-slide>
   </swiper-container>
 
@@ -15,6 +32,23 @@
     <swiper-slide *ngFor="let tvShow of tvShows">
       <div class="swiper-slide-content">
         <img [src]="'https://image.tmdb.org/t/p/w500' + tvShow.backdropPath" alt="{{ tvShow.titulo }}">
+      </div>
+      <div class="actions">
+        <h4>{{tvShow.titulo}}</h4>
+        <div class="genres">
+          <ul>
+            <li *ngFor="let genero of tvShow.generos">{{genero}}</li>
+          </ul>
+        </div>
+        <hr>
+        <div class="btn-actions">
+          <button class="add-to-list">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="more-details">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
       </div>
     </swiper-slide>
   </swiper-container>
