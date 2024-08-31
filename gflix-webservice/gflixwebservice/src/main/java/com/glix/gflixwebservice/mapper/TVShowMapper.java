@@ -15,8 +15,8 @@ public class TVShowMapper {
         Long id = json.optLong("id");
         String title = json.optString("name");
         String overview = json.optString("overview");
-        String posterPath = json.optString("poster_path");
-        String backdropPath = json.optString("backdrop_path");
+        String posterPath = json.optString("backdrop_path");
+        String backdropPath = json.optString("poster_path");
 
         return new TVShowsDTO(id, title, overview, posterPath, backdropPath, genreList);
     }

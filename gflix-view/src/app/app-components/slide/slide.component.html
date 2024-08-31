@@ -1,0 +1,26 @@
+<h2 appAppearOnScroll >{{this.titulo}}</h2>
+  <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10"
+    slides-per-view="7">
+    <swiper-slide *ngFor="let movie of this.midia">
+      <div class="swiper-slide-content">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.posterPath" alt="{{ movie.titulo }}">
+      </div>
+      <div class="actions">
+        <h4>{{movie.titulo}}</h4>
+        <div class="genres">
+          <ul>
+            <li *ngFor="let genero of movie.generos">{{genero}}</li>
+          </ul>
+        </div>
+        <hr>
+        <div class="btn-actions">
+          <button class="add-to-list">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+          <button class="more-details">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    </swiper-slide>
+  </swiper-container>

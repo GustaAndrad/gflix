@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import 'swiper/swiper-bundle.css';
 import { DirectivesModule } from '../../directives/directivesModule.module';
+import { SlideComponent } from '../../app-components/slide/slide.component';
 
 @Component({
   selector: 'app-tvShows',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, DirectivesModule],
+  imports: [CommonModule, HttpClientModule, DirectivesModule, SlideComponent],
   providers: [GflixService],
   templateUrl: './tvShows.component.html',
   styleUrls: ['./tvShows.component.css'],

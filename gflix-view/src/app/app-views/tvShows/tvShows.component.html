@@ -1,28 +1,3 @@
 <div class="swiper-container">
-  <h2 appAppearOnScroll>TV Shows</h2>
-  <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10"
-    slides-per-view="7">
-    <swiper-slide *ngFor="let tvShow of tvShows">
-      <div class="swiper-slide-content">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + tvShow.backdropPath" alt="{{ tvShow.titulo }}">
-      </div>
-      <div class="actions">
-        <h4>{{tvShow.titulo}}</h4>
-        <div class="genres">
-          <ul>
-            <li *ngFor="let genero of tvShow.generos">{{genero}}</li>
-          </ul>
-        </div>
-        <hr>
-        <div class="btn-actions">
-          <button class="add-to-list">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <button class="more-details">
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-        </div>
-      </div>
-    </swiper-slide>
-  </swiper-container>
+  <app-slide [titulo]="'Series'" [midia]="tvShows"></app-slide>
 </div>
