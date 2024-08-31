@@ -6,37 +6,25 @@ import 'swiper/swiper-bundle.css';
 import { DirectivesModule } from '../../directives/directivesModule.module';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-tvShows',
   standalone: true,
   imports: [CommonModule, HttpClientModule, DirectivesModule],
   providers: [GflixService],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  templateUrl: './tvShows.component.html',
+  styleUrls: ['./tvShows.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class HomeComponent implements OnInit {
+export class TvShowsComponent implements OnInit {
 
-  movies: any;
   tvShows: any;
-  pageForMovies = 1;
   pageForTv = 1;
 
   constructor(private service: GflixService) { }
 
   ngOnInit() {
-    this.fetchMovies();
     this.fetchTvShows();
   }
 
-  async fetchMovies() {
-    await this.service.getMovies(this.pageForMovies)
-      .then(movies => {
-        this.movies = movies;
-      })
-      .catch(error => {
-        console.error('Erro ao buscar filmes:', error);
-      });
-  }
 
   async fetchTvShows() {
     await this.service.getTVShows(this.pageForTv)

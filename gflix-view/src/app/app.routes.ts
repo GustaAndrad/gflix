@@ -6,10 +6,14 @@ import { MyListComponent } from './app-views/my-list/my-list.component';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { Auth } from '@angular/fire/auth';
+import { MoviesComponent } from './app-views/movies/movies.component';
+import { TvShowsComponent } from './app-views/tvShows/tvShows.component';
 
 export const routes: Routes = [
   { path: '', canActivate: [AuthGuardService], component: HomeComponent },
   { path: 'home', canActivate: [AuthGuardService], component: HomeComponent },
+  { path: 'movies', canActivate: [AuthGuardService], component: MoviesComponent },
+  { path: 'tvShows', canActivate: [AuthGuardService], component: TvShowsComponent },
   { path: 'my-list', canActivate: [AuthGuardService], component: MyListComponent },
   { path: 'logout', canActivate: [AuthGuardService], component: LoginComponent },
   { path: 'login', component: LoginComponent },

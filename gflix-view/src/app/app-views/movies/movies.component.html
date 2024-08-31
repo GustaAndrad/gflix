@@ -8,14 +8,4 @@
       </div>
     </swiper-slide>
   </swiper-container>
-
-  <h2 appAppearOnScroll >TV Shows</h2>
-  <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10"
-    slides-per-view="7">
-    <swiper-slide *ngFor="let tvShow of tvShows">
-      <div class="swiper-slide-content">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + tvShow.backdropPath" alt="{{ tvShow.titulo }}">
-      </div>
-    </swiper-slide>
-  </swiper-container>
 </div>
