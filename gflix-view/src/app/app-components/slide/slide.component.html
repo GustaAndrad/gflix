@@ -1,26 +1,26 @@
-<h2 appAppearOnScroll >{{this.titulo}}</h2>
-  <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10"
-    slides-per-view="7">
-    <swiper-slide *ngFor="let movie of this.midia">
-      <div class="swiper-slide-content">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.posterPath" alt="{{ movie.titulo }}">
+<h2 appAppearOnScroll>{{this.titulo}}</h2>
+<swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10" slides-per-view="7">
+  <swiper-slide *ngFor="let midia of this.midias">
+    <div class="swiper-slide-content">
+      <img [src]="'https://image.tmdb.org/t/p/w500' + midia.posterPath" alt="{{ midia.titulo }}">
+    </div>
+    <div class="actions">
+      <h4>{{midia.titulo}}</h4>
+      <div class="genres">
+        <ul>
+          <li *ngFor="let genero of midia.generos">{{genero}}</li>
+        </ul>
       </div>
-      <div class="actions">
-        <h4>{{movie.titulo}}</h4>
-        <div class="genres">
-          <ul>
-            <li *ngFor="let genero of movie.generos">{{genero}}</li>
-          </ul>
-        </div>
-        <hr>
-        <div class="btn-actions">
-          <button class="add-to-list">
-            <i class="fa-solid fa-plus"></i>
-          </button>
-          <button class="more-details">
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-        </div>
+      <hr>
+      <div class="btn-actions">
+        <button (click)="this.setFavorite(midia)" class="add-to-list">
+          <i *ngIf="!midia.favorite" class="fa-solid fa-plus"></i>
+          <i *ngIf="midia.favorite" class="fa-solid fa-check"></i>
+        </button>
+        <button class="more-details">
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
       </div>
-    </swiper-slide>
-  </swiper-container>
+    </div>
+  </swiper-slide>
+</swiper-container>

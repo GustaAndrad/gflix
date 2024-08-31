@@ -12,13 +12,15 @@ export class AuthService {
     this.userSubject.next(localStorage.getItem('authToken'));
   }
 
-  setUser(token: string | null) {
+  setUser(token: string | null, uid: string | null) {
     localStorage.setItem('authToken', token || '');
+    localStorage.setItem('uid', uid || '');
     this.userSubject.next(token);
   }
 
   clearUser() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('uid');
     this.userSubject.next(null);
   }
 }

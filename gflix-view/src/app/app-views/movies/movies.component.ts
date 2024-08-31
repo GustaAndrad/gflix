@@ -27,7 +27,7 @@ export class MoviesComponent implements OnInit {
   }
 
   async fetchMovies() {
-    await this.service.getMovies(this.pageForMovies)
+    await this.service.getMovies(this.pageForMovies, localStorage.getItem('uid'))
       .then(movies => {
         this.movies = movies;
       })

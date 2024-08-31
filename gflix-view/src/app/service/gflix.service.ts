@@ -9,11 +9,11 @@ export class GflixService {
 
   constructor(private http: HttpClient) { }
 
-  public getMovies(page: number): Promise<any> {
-    return this.http.get(this.API + "movies?page=" + page.toString()).toPromise();
+  public getMovies(page: number, uid: string | null): Promise<any> {
+    return this.http.get(this.API + "movies?page=" + page.toString() + "&userId=" + uid ).toPromise();
   }
 
-  public getTVShows(page: number): Promise<any> {
-    return this.http.get(this.API + "tvshows?page=" + page.toString()).toPromise();
+  public getTVShows(page: number, uid: string | null): Promise<any> {
+    return this.http.get(this.API + "tvshows?page=" + page.toString() + "&userId=" + uid).toPromise();
   }
 }

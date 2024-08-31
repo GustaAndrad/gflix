@@ -28,7 +28,7 @@ export class TvShowsComponent implements OnInit {
 
 
   async fetchTvShows() {
-    await this.service.getTVShows(this.pageForTv)
+    await this.service.getTVShows(this.pageForTv, localStorage.getItem('uid'))
       .then(tvShows => {
         this.tvShows = tvShows;
       })

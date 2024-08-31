@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   }
 
   async fetchMovies() {
-    await this.service.getMovies(this.pageForMovies)
+    await this.service.getMovies(this.pageForMovies, localStorage.getItem('uid'))
       .then(movies => {
         this.movies = movies;
       })
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   async fetchTvShows() {
-    await this.service.getTVShows(this.pageForTv)
+    await this.service.getTVShows(this.pageForTv, localStorage.getItem('uid'))
       .then(tvShows => {
         this.tvShows = tvShows;
       })

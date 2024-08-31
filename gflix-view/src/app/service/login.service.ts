@@ -16,8 +16,9 @@ export class LoginService {
     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
       tap(async userCredential => {
         const token = await userCredential.user?.getIdToken();
+        const uid = userCredential.user.uid;
         if (token) {
-          this.authService.setUser(token);
+          this.authService.setUser(token, uid);
         }
       })
     );

@@ -11,16 +11,19 @@ public class TVShowsDTO {
     private String posterPath;
     private List<String> generos;
 
+    private boolean favorite;
+
     public TVShowsDTO() {
     }
 
-    public TVShowsDTO(Long id, String titulo, String descricao, String backdropPath, String posterPath, List<String> generos) {
+    public TVShowsDTO(Long id, String titulo, String descricao, String backdropPath, String posterPath, List<String> generos, boolean favorite) {
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.backdropPath = backdropPath;
         this.posterPath = posterPath;
         this.generos = generos;
+        this.favorite = favorite;
     }
 
     public Long getId() {
@@ -69,6 +72,14 @@ public class TVShowsDTO {
 
     public void setGeneros(List<String> generos) {
         this.generos = generos;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     @Override
