@@ -30,17 +30,11 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.authSubscription = this.authService.user$.subscribe(token => {
       this.user = token;
     });
-    document.addEventListener('click', this.onClickOutside.bind(this));
+  document.addEventListener('click', this.onClickOutside.bind(this));
   }
 
   ngOnDestroy() {
     document.removeEventListener('click', this.onClickOutside.bind(this));
-  }
-
-
-  @HostListener('window:scroll', [])
-  onWindowScroll() {
-    this.isScrolled = window.scrollY > 50;
   }
 
   toggleSearch() {
@@ -59,6 +53,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.authService.clearUser();
     this.route.navigate(['login']);
   }
+
   onSearch() {
     console.log('Procurando por:', this.searchQuery);
   }

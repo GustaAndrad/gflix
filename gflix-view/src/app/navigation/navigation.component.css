@@ -154,8 +154,24 @@ i:hover {
   left: -110px !important;
 }
 
+.entrar {
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  background: #e50914;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.entrar:hover {
+  background: #bd0710;
+}
+
 @media (max-width: 991px) {
   .dropdown-menu {
     left: 0px !important;
   }
+
 }

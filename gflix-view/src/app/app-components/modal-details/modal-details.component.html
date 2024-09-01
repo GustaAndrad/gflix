@@ -33,7 +33,7 @@
         </p>
       </div>
       <div class="modal-actions">
-        <button (click)="setFavorite()" class="btn btn-primary">
+        <button [hidden]="this.sharedList" (click)="setFavorite()" class="btn btn-primary">
           <i *ngIf="!midiaDetails.isFavorite" class="fa-solid fa-plus"></i>
           <i *ngIf="midiaDetails.isFavorite" class="fa-solid fa-check"></i>
           {{!midiaDetails.isFavorite ? 'Adicionar a lista' : 'Remover da lista'}}

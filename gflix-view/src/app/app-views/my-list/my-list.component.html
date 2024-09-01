@@ -1,15 +1,25 @@
 <div class="swiper-container">
-  <h2>Minha Lista</h2>
+  <div class="header">
+    <h2>Minha Lista</h2>
+    <div class="share">
+      <span>Compartilhe sua lista</span>
+      <ul>
+        <li><button (click)="shareOnWhatsApp()" class="share-button whatsapp"><i
+              class="fa-brands fa-whatsapp"></i></button></li>
+        <li><button (click)="copyLink()" class="share-button copy"><i class="fa-solid fa-copy"></i></button></li>
+      </ul>
+    </div>
+  </div>
   <div class="d-flex flex-wrap justify-content-center">
     <div appAppearOnScroll class="card" *ngFor="let favorite of this.favorites">
-      <div class="div-content">
+      <div (click)="this.showDetails(favorite)" class="div-content">
         <img [src]="'https://image.tmdb.org/t/p/w500' + favorite.posterPath" alt="{{ favorite.titulo }}">
       </div>
       <div class="actions">
         <h4>{{favorite.titulo}}</h4>
         <hr>
         <div class="btn-actions">
-          <button (click)="this.setFavorite(favorite)" class="add-to-list">
+          <button [hidden]="this.sharedList" (click)="this.setFavorite(favorite)" class="add-to-list">
             <i *ngIf="!favorite.favorite" class="fa-solid fa-plus"></i>
             <i *ngIf="favorite.favorite" class="fa-solid fa-check"></i>
           </button>
@@ -21,5 +31,9 @@
     </div>
   </div>
 </div>
-
-<app-modal-details [midiaDetails]="this.midiaDetails" (modalClosed)="onModalClose($event)"></app-modal-details>
+<div *ngIf="this.favorites.length < 1" class="aviso">
+  <h2>Ops !! </h2>
+  <h1>Lista vazia ou não encontrada</h1>
+</div>
+<app-modal-details [midiaDetails]="this.midiaDetails" [sharedList]="this.sharedList"
+  (modalClosed)="onModalClose($event)"></app-modal-details>

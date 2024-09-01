@@ -15,6 +15,7 @@ import { ListService } from '../../service/list.service';
 export class ModalDetailsComponent implements OnInit {
 
   @Input() midiaDetails: any;
+  @Input() sharedList: any;
   @Output() modalClosed = new EventEmitter<any>();
 
   constructor(private listService: ListService, private gflixService: GflixService) { }

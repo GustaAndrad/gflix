@@ -25,6 +25,7 @@
   height: 490px;
   object-fit: cover;
   border-radius: 10px;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -32,4 +33,66 @@
     opacity: 1;
     transition: all 0.4s ease-in-out;
   }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  padding-right: 40px;
+}
+
+.share span {
+  margin-right: 10px;
+}
+
+.share ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 35px;
+}
+
+.share-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.share-button.whatsapp {
+  color: #25d366;
+  /* WhatsApp color */
+}
+
+.share-button.copy {
+  color: #000;
+  /* Default color for copy button */
+}
+
+.share-button.instagram {
+  color: #e4405f;
+  /* Instagram color */
+}
+
+.share-button i {
+  margin: 0;
+}
+
+.aviso {
+  text-align: center;
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 10%;
+  font-weight: 700;
 }

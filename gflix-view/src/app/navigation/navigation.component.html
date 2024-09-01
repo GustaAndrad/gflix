@@ -1,12 +1,13 @@
-<nav [ngClass]="{'d-none': user == null}" class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand navbar-logo" href="home"><img src="./assets/logo-glix.png" alt="Netflix Logo" /></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button [ngClass]="{'d-none': this.user == null}" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+      aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
+      <ul [ngClass]="{'d-none': this.user == null}" class="navbar-nav me-auto mb-2 mb-lg-0 navbar-links">
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="home">Inicio</a>
         </li>
@@ -20,7 +21,7 @@
           <a class="nav-link" href="myList">Minha lista</a>
         </li>
       </ul>
-      <div class="navbar-icons">
+      <div [ngClass]="{'d-none': this.user == null}" class="navbar-icons">
         <div class="search-container" #searchContainer>
           <button class="search-button" (click)="toggleSearch()">
             <i class="fa fa-search"></i>
@@ -46,16 +47,6 @@
         </div>
       </div>
     </div>
+    <button class="entrar" [ngClass]="{'d-none': this.user != null}" type="submit"><a href="/login">Entrar</a></button>
   </div>
 </nav>
-<!-- <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown
-  </a>
-  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</li> -->

@@ -21,6 +21,7 @@ export class AuthService {
   clearUser() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('uid');
+    localStorage.removeItem('tokenList')
     this.userSubject.next(null);
   }
 }
