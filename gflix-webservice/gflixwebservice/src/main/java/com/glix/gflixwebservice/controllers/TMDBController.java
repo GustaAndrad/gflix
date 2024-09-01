@@ -9,7 +9,6 @@ import com.glix.gflixwebservice.services.MyListService;
 import com.glix.gflixwebservice.services.TMDBService;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -121,6 +120,66 @@ public class TMDBController {
             tv.put("isFavorite", isFavorite);
 
             return ResponseEntity.status(HttpStatus.OK).body(tv.toMap());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao buscar o filme");
+        }
+    }
+
+    @PostMapping("/movieBySearch")
+    public ResponseEntity<Object> getMovieBySearch(@RequestParam(defaultValue = "1") int page,
+                                                   @RequestParam() String userId,
+                                                   @RequestBody() String searchQuery) {
+        try {
+            JSONObject movies = tmdbService.getMovieBySearch(searchQuery, page);
+            List<GenreDTO> genres = tmdbService.getGenres();
+            List<MovieDTO> movieDTOS = new ArrayList<>();
+
+            JSONArray listaFilmesEncontrados = movies.optJSONArray("results");
+            Map<Long, String> genreMap = genres.stream().collect(Collectors.toMap(GenreDTO::getId, GenreDTO::getNome));
+
+            for (int i = 0; i < listaFilmesEncontrados.length(); i++) {
+                JSONObject movie = listaFilmesEncontrados.optJSONObject(i);
+                List<String> genreListNomes = this.getGenreListNomes(movie, genreMap);
+                boolean isFavorite = false;
+
+                if (userId != null) {
+                    isFavorite = myListService.existsFavoriteByUserIdAndMovieId(userId, movie.optLong("id"));
+                }
+
+                movieDTOS.add(MovieMapper.jsonToMovieDTO(movie, genreListNomes, isFavorite));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(movieDTOS);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao buscar o filme");
+        }
+    }
+
+    @PostMapping("/tvBySearch")
+    public ResponseEntity<Object> getTvBySearch(@RequestParam(defaultValue = "1") int page,
+                                                @RequestParam() String userId,
+                                                @RequestBody() String searchQuery) {
+        try {
+            JSONObject tvs = tmdbService.getTvBySearch(searchQuery, page);
+
+            List<GenreDTO> genres = tmdbService.getGenres();
+            JSONArray listTvs = tvs.optJSONArray("results");
+            List<TVShowsDTO> tvShowsDTOS = new ArrayList<>();
+
+            Map<Long, String> genreMap = genres.stream().collect(Collectors.toMap(GenreDTO::getId, GenreDTO::getNome));
+
+            for (int i = 0; i < listTvs.length(); i++) {
+                JSONObject tv = listTvs.getJSONObject(i);
+                List<String> genreListNomes = this.getGenreListNomes(tv, genreMap);
+                boolean isFavorite = false;
+
+                if (userId != null) {
+                    isFavorite = myListService.existsFavoriteByUserIdAndTvId(userId, tv.optLong("id"));
+                }
+                tvShowsDTOS.add(TVShowMapper.jsonToTVShowsDTO(tv, genreListNomes, isFavorite));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(tvShowsDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao buscar o filme");
         }

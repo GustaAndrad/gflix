@@ -22,11 +22,12 @@
         </li>
       </ul>
       <div [ngClass]="{'d-none': this.user == null}" class="navbar-icons">
-        <div class="search-container" #searchContainer>
+        <div [hidden]="!isCurrentPathFilmesOrSeries()" class="search-container" #searchContainer>
           <button class="search-button" (click)="toggleSearch()">
             <i class="fa fa-search"></i>
           </button>
-          <input type="text" class="search-input" [ngClass]="{'open': isOpen}" placeholder="Pesquisar..." />
+          <input type="text" class="search-input" [(ngModel)]="searchQuery" (input)="onSearch()"
+            [ngClass]="{'open': isOpen}" placeholder="Pesquisar..." />
         </div>
         <div class="user-menu nav-item dropdown ">
           <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"

@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { GflixService } from '../../service/gflix.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,6 +7,8 @@ import { SlideComponent } from '../../app-components/slide/slide.component';
 import { ModalDetailsComponent } from '../../app-components/modal-details/modal-details.component';
 import { ListService } from '../../service/list.service';
 import { DirectivesModule } from '../../directives/directivesModule.module';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../../service/search.service';
 
 @Component({
   selector: 'app-movies',
@@ -16,7 +18,7 @@ import { DirectivesModule } from '../../directives/directivesModule.module';
   templateUrl: './movies.component.html',
   styleUrls: ['./movies.component.css']
 })
-export class MoviesComponent implements OnInit {
+export class MoviesComponent implements OnInit, OnDestroy {
 
   movies: any;
   pageForMovies = 1;
@@ -27,10 +29,38 @@ export class MoviesComponent implements OnInit {
 
   isLoading = false;
 
-  constructor(private service: GflixService, private listService: ListService) { }
+  searchQuery: string = '';
+  private searchSubscription!: Subscription;
+
+  constructor(private service: GflixService, private listService: ListService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.fetchMovies();
+    this.searchSubscription = this.searchService.search$.subscribe(query => {
+      this.searchQuery = query;
+      if (this.searchQuery.trim() !== '' && !this.isLoading) {
+        try {
+          this.isLoading = true;
+          this.searchMovies(this.searchQuery);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.isLoading = false;
+        }
+      }
+    });
+  }
+  ngOnDestroy() {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+  }
+
+  searchMovies(searchQuery: string) {
+    this.pageForMovies = 1;
+    this.service.getMovieBySearch(searchQuery, this.pageForMovies, this.uid).then(r => {
+      this.movies = r;
+    });
   }
 
   async fetchMovies() {

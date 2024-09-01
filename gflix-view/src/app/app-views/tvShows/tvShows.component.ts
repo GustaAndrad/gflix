@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { GflixService } from '../../service/gflix.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,6 +7,8 @@ import { SlideComponent } from '../../app-components/slide/slide.component';
 import { ListService } from '../../service/list.service';
 import { ModalDetailsComponent } from '../../app-components/modal-details/modal-details.component';
 import { DirectivesModule } from '../../directives/directivesModule.module';
+import { Subscription } from 'rxjs';
+import { SearchService } from '../../service/search.service';
 
 @Component({
   selector: 'app-tvShows',
@@ -16,7 +18,7 @@ import { DirectivesModule } from '../../directives/directivesModule.module';
   templateUrl: './tvShows.component.html',
   styleUrls: ['./tvShows.component.css']
 })
-export class TvShowsComponent implements OnInit {
+export class TvShowsComponent implements OnInit, OnDestroy {
 
   tvShows: any;
   pageForTvShows = 1;
@@ -27,10 +29,32 @@ export class TvShowsComponent implements OnInit {
 
   isLoading = false;
 
-  constructor(private service: GflixService, private listService: ListService) { }
+  searchQuery: string = '';
+  private searchSubscription!: Subscription;
+
+  constructor(private service: GflixService, private listService: ListService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.fetchTvShows();
+    this.searchSubscription = this.searchService.search$.subscribe(query => {
+      this.searchQuery = query;
+      if (this.searchQuery.trim() !== '' && !this.isLoading) {
+        try {
+          this.isLoading = true;
+          this.searchTv(this.searchQuery);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.isLoading = false;
+        }
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
   }
 
   async fetchTvShows() {
@@ -52,6 +76,13 @@ export class TvShowsComponent implements OnInit {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  searchTv(searchQuery: string) {
+    this.pageForTvShows = 1;
+    this.service.getMovieBySearch(searchQuery, this.pageForTvShows, this.uid).then(r => {
+      this.tvShows = r;
+    });
   }
 
   setFavorite(midia: any, index: number) {

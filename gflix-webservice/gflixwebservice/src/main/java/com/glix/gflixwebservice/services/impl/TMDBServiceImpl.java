@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,6 +108,40 @@ public class TMDBServiceImpl implements TMDBService {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path("/tv/" + tvShowId)
                 .queryParam("language", "pt-BR")
+                .toUriString();
+
+        HttpEntity<String> entity = new HttpEntity<>(createHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return new JSONObject(response.getBody());
+    }
+
+    @Override
+    public JSONObject getMovieBySearch(String searchQuery, int page) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path("/search/movie")
+                .queryParam("query", searchQuery)
+                .queryParam("include_adult", "false")
+                .queryParam("language", "pt-BR")
+                .queryParam("page", page)
+                .queryParam("sort_by", "popularity.desc")
+                .toUriString();
+
+        HttpEntity<String> entity = new HttpEntity<>(createHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return new JSONObject(response.getBody());
+    }
+
+    @Override
+    public JSONObject getTvBySearch(String searchQuery, int page) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path("/search/tv")
+                .queryParam("query", searchQuery)
+                .queryParam("include_adult", "false")
+                .queryParam("language", "pt-BR")
+                .queryParam("page", page)
+                .queryParam("sort_by", "popularity.desc")
                 .toUriString();
 
         HttpEntity<String> entity = new HttpEntity<>(createHeaders());

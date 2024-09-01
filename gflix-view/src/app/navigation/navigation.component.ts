@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { LoginService } from '../service/login.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
 import { FormsModule } from '@angular/forms';
+import { SearchService } from '../service/search.service';
 
 @Component({
   selector: 'app-navigation',
@@ -19,18 +20,20 @@ export class NavigationComponent implements OnInit, OnDestroy {
   isOpen = false;
   @ViewChild('searchContainer') searchContainer!: ElementRef;
 
+  @Output() searchEvent = new EventEmitter<string>();
+
   isScrolled = false;
   user: any;
   searchQuery: string = '';
   private authSubscription!: Subscription;
 
-  constructor(private loginService: LoginService, private route: Router, private authService: AuthService) { }
+  constructor(private loginService: LoginService, private route: Router, private authService: AuthService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.authSubscription = this.authService.user$.subscribe(token => {
       this.user = token;
     });
-  document.addEventListener('click', this.onClickOutside.bind(this));
+    document.addEventListener('click', this.onClickOutside.bind(this));
   }
 
   ngOnDestroy() {
@@ -55,6 +58,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-    console.log('Procurando por:', this.searchQuery);
+    this.searchEvent.emit(this.searchQuery);
+    this.searchService.setSearchQuery(this.searchQuery);
+  }
+
+  isCurrentPathFilmesOrSeries(): boolean {
+    const currentPath = this.route.url;
+    return currentPath === '/filmes' || currentPath === '/series';
   }
 }

@@ -17,4 +17,8 @@ public interface TMDBService {
     JSONObject getMovieById(Long movieId);
 
     JSONObject getTvShowById(Long tvShowId);
+
+    JSONObject getMovieBySearch(String searchQuery, int page);
+
+    JSONObject getTvBySearch(String searchQuery, int page);
 }
