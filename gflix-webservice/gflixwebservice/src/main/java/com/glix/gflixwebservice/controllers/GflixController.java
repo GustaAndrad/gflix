@@ -1,8 +1,12 @@
 package com.glix.gflixwebservice.controllers;
 
+import com.glix.gflixwebservice.dtos.MovieDTO;
 import com.glix.gflixwebservice.dtos.MyListDTO;
+import com.glix.gflixwebservice.mapper.MovieMapper;
 import com.glix.gflixwebservice.models.MyList;
 import com.glix.gflixwebservice.services.MyListService;
+import com.glix.gflixwebservice.services.TMDBService;
+import org.json.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,13 +27,24 @@ public class GflixController {
     @Autowired
     MyListService listService;
 
+    @Autowired
+    TMDBService tmdbService;
+
     @GetMapping("/myList")
     public ResponseEntity<Object> getMyList(@RequestParam(required = false) UUID tokenList, @RequestParam(required = false) String userId) {
         try {
+            List<MovieDTO> filmes = new ArrayList<>();
             if (tokenList != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(listService.findByTokenList(tokenList));
+                List<MyList> myLists = listService.findAllByTokenListOrUserId(tokenList, userId);
+                for (MyList myList : myLists) {
+                    Long movieId = myList.getMovieId();
+                    JSONObject movieJson = tmdbService.getMovieById(movieId);
+                    MovieDTO movieDTO = MovieMapper.jsonToMovieDTO(movieJson, null, true);
+                    filmes.add(movieDTO);
+                }
+                return ResponseEntity.status(HttpStatus.OK).body(filmes);
             } else if (userId != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(listService.findByUserId(userId));
+                return ResponseEntity.status(HttpStatus.OK).body(listService.findAllByUserId(userId));
             }
 
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nenhum parametro informado");

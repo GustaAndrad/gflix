@@ -7,13 +7,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface MyListRepository extends JpaRepository<MyList, UUID>, JpaSpecificationExecutor<MyList> {
-    Optional<MyList> findByUserId(String userId);
+    List<MyList> findAllByUserId(String userId);
 
-    Optional<MyList> findByTokenList(UUID tokenList);
+    List<MyList> findAllByTokenListOrUserId(UUID tokenList, String userId);
 
     @Modifying
     @Query(value = "DELETE FROM tb_mylist WHERE token_list= :tokenList and movie_id= :movieId or tv_show_id= :tvShowId", nativeQuery = true)
@@ -30,4 +31,5 @@ public interface MyListRepository extends JpaRepository<MyList, UUID>, JpaSpecif
             "FROM tb_myList tml  " +
             "WHERE tml.user_id= :userId and tml.tv_show_id= :tvShowId", nativeQuery = true)
     boolean existsFavoriteByUserIdAndTvShowId(@Param("userId") String userId, @Param("tvShowId") long tvShowId);
+
 }

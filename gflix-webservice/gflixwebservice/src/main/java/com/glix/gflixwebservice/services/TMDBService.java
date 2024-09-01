@@ -13,4 +13,6 @@ public interface TMDBService {
     JSONObject getTVShows(int page);
 
     List<GenreDTO> getGenres() throws IOException;
+
+    JSONObject getMovieById(Long movieId);
 }

@@ -1,3 +1,25 @@
-<p>
-  my-list works!
-</p>
+<div class="swiper-container">
+  <h2 appAppearRightOnScroll>Minha Lista</h2>
+  <div class="d-flex flex-wrap justify-content-center">
+    <div appAppearOnScroll class="card" *ngFor="let favorite of this.favorites">
+      <div class="div-content">
+        <img [src]="'https://image.tmdb.org/t/p/w500' + favorite.posterPath" alt="{{ favorite.titulo }}">
+      </div>
+      <div class="actions">
+        <h4>{{favorite.titulo}}</h4>
+        <hr>
+        <div class="btn-actions">
+          <button (click)="this.setFavorite(favorite)" class="add-to-list">
+            <i *ngIf="!favorite.favorite" class="fa-solid fa-plus"></i>
+            <i *ngIf="favorite.favorite" class="fa-solid fa-check"></i>
+          </button>
+          <button (click)="this.showDetails(favorite.id)" class="more-details">
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-details [midiaDetails]="this.midiaDetails"></app-modal-details>

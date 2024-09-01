@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -29,13 +30,13 @@ public class MyListServiceImpl implements MyListService {
     }
 
     @Override
-    public Optional<MyList> findByUserId(String userId) {
-        return myListRepository.findByUserId(userId);
+    public List<MyList> findAllByUserId(String userId) {
+        return myListRepository.findAllByUserId(userId);
     }
 
     @Override
-    public Optional<MyList> findByTokenList(UUID tokenList) {
-        return myListRepository.findByTokenList(tokenList);
+    public List<MyList> findAllByTokenListOrUserId(UUID tokenList, String userId) {
+        return myListRepository.findAllByTokenListOrUserId(tokenList, userId);
     }
 
     @Transactional

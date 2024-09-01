@@ -14,7 +14,8 @@ export const routes: Routes = [
   { path: 'home', canActivate: [AuthGuardService], component: HomeComponent },
   { path: 'movies', canActivate: [AuthGuardService], component: MoviesComponent },
   { path: 'tvShows', canActivate: [AuthGuardService], component: TvShowsComponent },
-  { path: 'my-list', canActivate: [AuthGuardService], component: MyListComponent },
+  { path: 'myList', canActivate: [AuthGuardService], component: MyListComponent },
+  { path: 'sharedList/:tokenList', component: MyListComponent },
   { path: 'logout', canActivate: [AuthGuardService], component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: '' }

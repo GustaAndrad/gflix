@@ -1,19 +1,17 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GflixService } from '../../service/gflix.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import 'swiper/swiper-bundle.css';
-import { DirectivesModule } from '../../directives/directivesModule.module';
 import { SlideComponent } from '../../app-components/slide/slide.component';
 
 @Component({
   selector: 'app-tvShows',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, DirectivesModule, SlideComponent],
+  imports: [CommonModule, HttpClientModule, SlideComponent],
   providers: [GflixService],
   templateUrl: './tvShows.component.html',
-  styleUrls: ['./tvShows.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  styleUrls: ['./tvShows.component.css']
 })
 export class TvShowsComponent implements OnInit {
 

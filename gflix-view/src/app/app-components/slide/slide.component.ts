@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import 'swiper/swiper-bundle.css';
 import { DirectivesModule } from '../../directives/directivesModule.module';
 import { ListService } from '../../service/list.service';
+import { GflixService } from '../../service/gflix.service';
+import { ModalDetailsComponent } from '../modal-details/modal-details.component';
 
 
 @Component({
   selector: 'app-slide',
   standalone: true,
-  imports: [CommonModule, DirectivesModule],
-  providers: [ListService],
+  imports: [CommonModule, DirectivesModule, ModalDetailsComponent],
+  providers: [ListService, GflixService],
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.css'],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -19,11 +21,15 @@ export class SlideComponent implements OnInit {
   @Input() midias: any;
   @Input() titulo: any;
 
-  constructor(private listService: ListService) { }
+  midiaDetails: any;
+
+  uid = localStorage.getItem('uid');
+
+  constructor(private listService: ListService, private gflixService: GflixService) { }
 
   ngOnInit() { }
 
-  setFavorite(midia: any) {
+  setFavorite(midia: any, index: number) {
     var tokenList = localStorage.getItem('tokenList');
     var userId = localStorage.getItem('uid');
 
@@ -35,14 +41,19 @@ export class SlideComponent implements OnInit {
     };
     if (midia.favorite) {
       this.listService.deleteItemList(myListDTO);
+      this.midias[index].favorite = !midia.favorite;
     } else {
       this.listService.setItemList(myListDTO).then((r) => {
         if (tokenList == null) {
           localStorage.setItem('tokenList', r.tokenList);
-          midia.favorite = true;
         }
+        this.midias[index].favorite = !midia.favorite;
       });
     }
+  }
+
+  async showDetails(midia: any) {
+    this.midiaDetails = await this.gflixService.getMovieById(midia, this.uid);
   }
 
 

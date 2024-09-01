@@ -74,7 +74,7 @@ public class TMDBServiceImpl implements TMDBService {
     }
 
     @Override
-    public List<GenreDTO> getGenres() throws IOException {
+    public List<GenreDTO> getGenres() {
         String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
                 .path("/genre/movie/list")
                 .queryParam("language", "pt-BR")
@@ -89,5 +89,18 @@ public class TMDBServiceImpl implements TMDBService {
             genreDTOList.add(genre);
         }
         return genreDTOList;
+    }
+
+    @Override
+    public JSONObject getMovieById(Long movieId) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path("/movie/" + movieId)
+                .queryParam("language", "pt-BR")
+                .toUriString();
+
+        HttpEntity<String> entity = new HttpEntity<>(createHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return new JSONObject(response.getBody());
     }
 }

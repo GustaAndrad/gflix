@@ -1,3 +1,42 @@
-<p>
-  modal-details works!
-</p>
+<div *ngIf="midiaDetails != null" class="modal custom-modal-overlay" (click)="closeModal($event)">
+  <div appAppearOnScroll class="custom-modal-content" (click)="$event.stopPropagation()">
+    <button type="button" class="close btn-close" aria-label="Close" (click)="closeDetails()">&times;</button>
+    <div class="modal-header">
+      <img [src]="'https://image.tmdb.org/t/p/w780' + midiaDetails.backdrop_path" alt="{{ midiaDetails.title }}"
+        class="modal-backdrop-img">
+    </div>
+    <div class="title">
+      <h2>{{ midiaDetails.title }}</h2>
+      <p>{{ midiaDetails.tagline }}</p>
+    </div>
+    <div class="modal-body">
+      <p>{{ midiaDetails.overview }}</p>
+      <ul class="modal-genres">
+        <li *ngFor="let genre of midiaDetails.genres">{{ genre.name }}</li>
+      </ul>
+      <div class="modal-details">
+        <p><strong>Nota média:</strong> {{ midiaDetails.vote_average }}</p>
+        <p><strong>Data de lançamento:</strong> {{ midiaDetails.release_date | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Duração:</strong> {{ midiaDetails.runtime }} minutos</p>
+        <p><strong>Idiomas:</strong>
+          <span *ngFor="let lang of midiaDetails.spoken_languages; let i = index">
+            {{ lang.english_name }}<span *ngIf="i < midiaDetails.spoken_languages.length - 1">, </span>
+          </span>
+        </p>
+        <p><strong>Produção:</strong>
+          <span *ngFor="let company of midiaDetails.production_companies; let i = index">
+            {{ company.name }}<span *ngIf="i < midiaDetails.production_companies.length - 1">, </span>
+          </span>
+        </p>
+      </div>
+      <div class="modal-actions">
+        <button (click)="setFavorite()" class="btn btn-primary">
+          <i *ngIf="!midiaDetails.isFavorite" class="fa-solid fa-plus"></i>
+          <i *ngIf="midiaDetails.isFavorite" class="fa-solid fa-check"></i>
+          {{!midiaDetails.isFavorite ? 'Adicionar a lista' : 'Remover da lista'}}
+        </button>
+        <button (click)="closeDetails()" class="btn btn-secondary">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>

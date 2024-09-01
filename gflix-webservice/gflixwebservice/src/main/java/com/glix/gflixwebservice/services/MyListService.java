@@ -2,6 +2,7 @@ package com.glix.gflixwebservice.services;
 
 import com.glix.gflixwebservice.models.MyList;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,9 +12,9 @@ public interface MyListService {
 
     MyList save(MyList myList);
 
-    Optional<MyList> findByUserId(String userId);
+    List<MyList> findAllByUserId(String userId);
 
-    Optional<MyList> findByTokenList(UUID tokenList);
+    List<MyList> findAllByTokenListOrUserId(UUID tokenList, String userId);
 
     void deleteItemList(UUID tokenList, Long movieId, Long tvShowId);
 
