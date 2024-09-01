@@ -103,4 +103,17 @@ public class TMDBServiceImpl implements TMDBService {
 
         return new JSONObject(response.getBody());
     }
+
+    @Override
+    public JSONObject getTvShowById(Long tvShowId) {
+        String url = UriComponentsBuilder.fromHttpUrl(apiUrl)
+                .path("/tv/" + tvShowId)
+                .queryParam("language", "pt-BR")
+                .toUriString();
+
+        HttpEntity<String> entity = new HttpEntity<>(createHeaders());
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+
+        return new JSONObject(response.getBody());
+    }
 }

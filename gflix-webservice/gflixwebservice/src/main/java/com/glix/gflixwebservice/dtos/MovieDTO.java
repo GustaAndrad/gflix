@@ -1,5 +1,7 @@
 package com.glix.gflixwebservice.dtos;
 
+import com.glix.gflixwebservice.enums.Tipo;
+
 import java.util.List;
 
 public class MovieDTO {
@@ -10,14 +12,14 @@ public class MovieDTO {
     private String posterPath;
     private String backdropPath;
     private List<String> generos;
-
     private boolean favorite;
+    private Tipo tipo;
 
 
     public MovieDTO() {
     }
 
-    public MovieDTO(Long id, String title, String overview, String posterPath, String backdropPath, List<String> genreNames, boolean favorite) {
+    public MovieDTO(Long id, String title, String overview, String posterPath, String backdropPath, List<String> genreNames, boolean favorite, Tipo tipo) {
         this.id = id;
         this.titulo = title;
         this.descricao = overview;
@@ -25,6 +27,7 @@ public class MovieDTO {
         this.backdropPath = backdropPath;
         this.generos = genreNames;
         this.favorite = favorite;
+        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -81,6 +84,14 @@ public class MovieDTO {
 
     public void setFavorite(boolean favorite) {
         this.favorite = favorite;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     @Override

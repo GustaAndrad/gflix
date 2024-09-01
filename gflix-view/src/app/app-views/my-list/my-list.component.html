@@ -1,5 +1,5 @@
 <div class="swiper-container">
-  <h2 appAppearRightOnScroll>Minha Lista</h2>
+  <h2>Minha Lista</h2>
   <div class="d-flex flex-wrap justify-content-center">
     <div appAppearOnScroll class="card" *ngFor="let favorite of this.favorites">
       <div class="div-content">
@@ -13,7 +13,7 @@
             <i *ngIf="!favorite.favorite" class="fa-solid fa-plus"></i>
             <i *ngIf="favorite.favorite" class="fa-solid fa-check"></i>
           </button>
-          <button (click)="this.showDetails(favorite.id)" class="more-details">
+          <button (click)="this.showDetails(favorite)" class="more-details">
             <i class="fa-solid fa-chevron-down"></i>
           </button>
         </div>
@@ -22,4 +22,4 @@
   </div>
 </div>
 
-<app-modal-details [midiaDetails]="this.midiaDetails"></app-modal-details>
+<app-modal-details [midiaDetails]="this.midiaDetails" (modalClosed)="onModalClose($event)"></app-modal-details>

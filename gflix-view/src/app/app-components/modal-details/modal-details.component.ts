@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DirectivesModule } from '../../directives/directivesModule.module';
 import { GflixService } from '../../service/gflix.service';
 import { ListService } from '../../service/list.service';
@@ -15,6 +15,7 @@ import { ListService } from '../../service/list.service';
 export class ModalDetailsComponent implements OnInit {
 
   @Input() midiaDetails: any;
+  @Output() modalClosed = new EventEmitter<any>();
 
   constructor(private listService: ListService, private gflixService: GflixService) { }
 
@@ -45,6 +46,9 @@ export class ModalDetailsComponent implements OnInit {
   }
 
   closeDetails() {
+    if (this.midiaDetails) {
+      this.modalClosed.emit(this.midiaDetails);
+    }
     this.midiaDetails = null;
   }
 
@@ -52,5 +56,21 @@ export class ModalDetailsComponent implements OnInit {
     if ((event.target as HTMLElement).classList.contains('modal')) {
       this.closeDetails();
     }
+  }
+
+  getBorderColor(voteAverage: number): string {
+    const percentage = voteAverage * 10;
+
+    if (percentage >= 70) {
+      return 'green';
+    } else if (percentage >= 50) {
+      return 'yellow';
+    } else {
+      return 'red';
+    }
+  }
+
+  getRoundedPercentage(voteAverage: number): number {
+    return Math.round(voteAverage * 10);
   }
 }

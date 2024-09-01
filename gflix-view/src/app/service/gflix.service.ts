@@ -21,4 +21,8 @@ export class GflixService {
   public getMovieById(movideId: number, uid: string | null): Promise<any> {
     return firstValueFrom(this.http.get(this.API + "movieById/" + movideId + "?userId=" + uid));
   }
+
+  public getTvById(movideId: number, uid: string | null): Promise<any> {
+    return firstValueFrom(this.http.get(this.API + "tvById/" + movideId + "?userId=" + uid));
+  }
 }

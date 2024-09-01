@@ -37,7 +37,8 @@ export class SlideComponent implements OnInit {
       tokenList: tokenList,
       movieId: midia.id,
       tvShowId: midia.id,
-      userId: userId
+      userId: userId,
+      tipo: midia.tipo
     };
     if (midia.favorite) {
       this.listService.deleteItemList(myListDTO);
@@ -53,7 +54,18 @@ export class SlideComponent implements OnInit {
   }
 
   async showDetails(midia: any) {
-    this.midiaDetails = await this.gflixService.getMovieById(midia, this.uid);
+    if (midia.tipo == "MOVIE") {
+      this.midiaDetails = await this.gflixService.getMovieById(midia.id, this.uid);
+    } else {
+      this.midiaDetails = await this.gflixService.getTvById(midia.id, this.uid);
+    }
+  }
+
+  onModalClose(midiaDetails: any) {
+    const midia = this.midias.find((m: { id: any; }) => m.id === midiaDetails.id);
+    if (midia) {
+      midia.favorite = midiaDetails.isFavorite;
+    }
   }
 
 

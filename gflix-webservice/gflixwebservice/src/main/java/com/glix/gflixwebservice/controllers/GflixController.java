@@ -2,7 +2,10 @@ package com.glix.gflixwebservice.controllers;
 
 import com.glix.gflixwebservice.dtos.MovieDTO;
 import com.glix.gflixwebservice.dtos.MyListDTO;
+import com.glix.gflixwebservice.dtos.TVShowsDTO;
+import com.glix.gflixwebservice.enums.Tipo;
 import com.glix.gflixwebservice.mapper.MovieMapper;
+import com.glix.gflixwebservice.mapper.TVShowMapper;
 import com.glix.gflixwebservice.models.MyList;
 import com.glix.gflixwebservice.services.MyListService;
 import com.glix.gflixwebservice.services.TMDBService;
@@ -17,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -33,16 +37,24 @@ public class GflixController {
     @GetMapping("/myList")
     public ResponseEntity<Object> getMyList(@RequestParam(required = false) UUID tokenList, @RequestParam(required = false) String userId) {
         try {
-            List<MovieDTO> filmes = new ArrayList<>();
+            List<Object> favoritos = new ArrayList<>();
             if (tokenList != null) {
                 List<MyList> myLists = listService.findAllByTokenListOrUserId(tokenList, userId);
                 for (MyList myList : myLists) {
                     Long movieId = myList.getMovieId();
-                    JSONObject movieJson = tmdbService.getMovieById(movieId);
-                    MovieDTO movieDTO = MovieMapper.jsonToMovieDTO(movieJson, null, true);
-                    filmes.add(movieDTO);
+                    Long tvShowId = myList.getTVShowId();
+                    if (movieId != null) {
+                        JSONObject movieJson = tmdbService.getMovieById(movieId);
+                        MovieDTO movieDTO = MovieMapper.jsonToMovieDTO(movieJson, null, true);
+                        favoritos.add(movieDTO);
+                    } else {
+                        JSONObject tvJson = tmdbService.getTvShowById(tvShowId);
+                        TVShowsDTO tvShowsDTO = TVShowMapper.jsonToTVShowsDTO(tvJson, null, true);
+                        favoritos.add(tvShowsDTO);
+                    }
+
                 }
-                return ResponseEntity.status(HttpStatus.OK).body(filmes);
+                return ResponseEntity.status(HttpStatus.OK).body(favoritos);
             } else if (userId != null) {
                 return ResponseEntity.status(HttpStatus.OK).body(listService.findAllByUserId(userId));
             }
@@ -59,11 +71,21 @@ public class GflixController {
         try {
             var myListModel = new MyList();
             BeanUtils.copyProperties(myListDTO, myListModel);
-            myListModel.setTVShowId(myListDTO.getTvShowId());
             myListModel.setDate(LocalDateTime.now(ZoneId.of("UTC")));
 
-            if (myListModel.getTokenList() == null) {
+            if (myListDTO.getTipo() == Tipo.MOVIE) {
+                myListModel.setTVShowId(null);
+            } else {
+                myListModel.setMovieId(null);
+                myListModel.setTVShowId(myListDTO.getTvShowId());
+            }
+
+            Optional<UUID> tokenList = listService.findTokenListByUserId(myListDTO.getUserId());
+
+            if (tokenList.isEmpty()) {
                 myListModel.setTokenList(UUID.randomUUID());
+            } else {
+                myListModel.setTokenList(tokenList.get());
             }
 
             return ResponseEntity.status(HttpStatus.CREATED).body(listService.save(myListModel));

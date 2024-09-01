@@ -54,4 +54,9 @@ public class MyListServiceImpl implements MyListService {
     public boolean existsFavoriteByUserIdAndTvId(String userId, long tvShowId) {
         return myListRepository.existsFavoriteByUserIdAndTvShowId(userId, tvShowId);
     }
+
+    @Override
+    public Optional<UUID> findTokenListByUserId(String userId) {
+        return myListRepository.findTokenListByUserId(userId);
+    }
 }

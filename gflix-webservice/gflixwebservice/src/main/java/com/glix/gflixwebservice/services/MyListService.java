@@ -21,4 +21,6 @@ public interface MyListService {
     boolean existsFavoriteByUserIdAndMovieId(String userId, long movieId);
 
     boolean existsFavoriteByUserIdAndTvId(String userId, long tvShowId);
+
+    Optional<UUID> findTokenListByUserId(String userId);
 }

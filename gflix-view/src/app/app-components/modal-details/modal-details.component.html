@@ -15,7 +15,10 @@
         <li *ngFor="let genre of midiaDetails.genres">{{ genre.name }}</li>
       </ul>
       <div class="modal-details">
-        <p><strong>Nota média:</strong> {{ midiaDetails.vote_average }}</p>
+        Avaliação dos usuários:
+        <p class="vote-average" [ngStyle]="{'border-color': getBorderColor(midiaDetails.vote_average)}">
+          <strong></strong> {{ getRoundedPercentage(midiaDetails.vote_average) }}%
+        </p>
         <p><strong>Data de lançamento:</strong> {{ midiaDetails.release_date | date:'dd/MM/yyyy' }}</p>
         <p><strong>Duração:</strong> {{ midiaDetails.runtime }} minutos</p>
         <p><strong>Idiomas:</strong>

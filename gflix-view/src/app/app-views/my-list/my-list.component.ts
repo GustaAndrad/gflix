@@ -33,7 +33,11 @@ export class MyListComponent implements OnInit {
   }
 
   async showDetails(midia: any) {
-    this.midiaDetails = await this.gflixService.getMovieById(midia, this.uid);
+    if (midia.tipo == "MOVIE") {
+      this.midiaDetails = await this.gflixService.getMovieById(midia.id, this.uid);
+    } else {
+      this.midiaDetails = await this.gflixService.getTvById(midia.id, this.uid);
+    }
   }
 
   setFavorite(midia: any) {
@@ -57,6 +61,10 @@ export class MyListComponent implements OnInit {
         }
       });
     }
+  }
+
+  onModalClose(midiaDetails: any) {
+    this.favorites = this.favorites.filter((m: any) => !(m.id === midiaDetails.id && m.favorite !== midiaDetails.isFavorite));
   }
 
 }

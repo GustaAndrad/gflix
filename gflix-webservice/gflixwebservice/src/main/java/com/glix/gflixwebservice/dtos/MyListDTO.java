@@ -1,5 +1,7 @@
 package com.glix.gflixwebservice.dtos;
 
+import com.glix.gflixwebservice.enums.Tipo;
+
 import java.util.UUID;
 
 public class MyListDTO {
@@ -11,6 +13,8 @@ public class MyListDTO {
     private Long tvShowId;
 
     private String userId;
+
+    private Tipo tipo;
 
     public MyListDTO() {
     }
@@ -45,5 +49,13 @@ public class MyListDTO {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 }

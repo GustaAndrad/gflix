@@ -1,7 +1,8 @@
 <h2 appAppearOnScroll>{{this.titulo}}</h2>
 <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="10" slides-per-view="7">
   <swiper-slide *ngFor="let midia of this.midias; let i = index">
-    <div class="swiper-slide-content">
+    <div (click)="this.showDetails(midia.id)" class="swiper-slide-content">
+      <i (click)="this.setFavorite(midia, i)" *ngIf="midia.favorite" class="fa-solid fa-heart"></i>
       <img [src]="'https://image.tmdb.org/t/p/w500' + midia.posterPath" alt="{{ midia.titulo }}">
     </div>
     <div class="actions">
@@ -17,7 +18,7 @@
           <i *ngIf="!midia.favorite" class="fa-solid fa-plus"></i>
           <i *ngIf="midia.favorite" class="fa-solid fa-check"></i>
         </button>
-        <button (click)="this.showDetails(midia.id)" class="more-details">
+        <button (click)="this.showDetails(midia)" class="more-details">
           <i class="fa-solid fa-chevron-down"></i>
         </button>
       </div>
@@ -25,4 +26,4 @@
   </swiper-slide>
 </swiper-container>
 
-<app-modal-details [midiaDetails]="this.midiaDetails"></app-modal-details>
+<app-modal-details [midiaDetails]="this.midiaDetails" (modalClosed)="onModalClose($event)"></app-modal-details>

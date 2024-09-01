@@ -107,6 +107,25 @@ public class TMDBController {
         }
     }
 
+    @GetMapping("/tvById/{id}")
+    public ResponseEntity<Object> getTvById(@PathVariable Long id, @RequestParam(required = false) String userId) {
+        try {
+            JSONObject tv = tmdbService.getTvShowById(id);
+
+            boolean isFavorite = false;
+
+            if (userId != null) {
+                isFavorite = myListService.existsFavoriteByUserIdAndTvId(userId, tv.optLong("id"));
+            }
+
+            tv.put("isFavorite", isFavorite);
+
+            return ResponseEntity.status(HttpStatus.OK).body(tv.toMap());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao buscar o filme");
+        }
+    }
+
     private List<String> getGenreListNomes(JSONObject midia, Map<Long, String> genreMap) {
 
         return Optional.ofNullable(midia.optJSONArray("genre_ids")).map(genreIds -> IntStream.range(0, genreIds.length()).mapToObj(genreIds::optLong).map(genreMap::get).filter(Objects::nonNull).collect(Collectors.toList())).orElse(Collections.emptyList());

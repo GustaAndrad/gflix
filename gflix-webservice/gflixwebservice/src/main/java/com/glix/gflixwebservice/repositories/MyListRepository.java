@@ -32,4 +32,6 @@ public interface MyListRepository extends JpaRepository<MyList, UUID>, JpaSpecif
             "WHERE tml.user_id= :userId and tml.tv_show_id= :tvShowId", nativeQuery = true)
     boolean existsFavoriteByUserIdAndTvShowId(@Param("userId") String userId, @Param("tvShowId") long tvShowId);
 
+    @Query(value = "SELECT token_list FROM tb_myList WHERE user_id= :userId LIMIT 1", nativeQuery = true)
+    Optional<UUID> findTokenListByUserId(@Param("userId") String userId);
 }
