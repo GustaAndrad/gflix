@@ -22,7 +22,7 @@ export class MyListComponent implements OnInit {
   favorites: any;
 
   uid = localStorage.getItem('uid');
-  tokenList = localStorage.getItem('tokenList');
+  tokenList = null;
   sharedList = false;
   sharedTokenList: any;
 
@@ -37,9 +37,11 @@ export class MyListComponent implements OnInit {
         this.loadSharedList(this.sharedTokenList);
         this.sharedList = true;
       } else {
-        this.listService.getFavorites(this.uid, this.tokenList || "").then(data => {
-          localStorage.setItem('tokenList', data[0].tokenList)
-          this.tokenList = data[0].tokenList;
+        this.listService.getFavorites(this.uid, this.tokenList || '').then(data => {
+          if(this.tokenList == null ){
+            this.tokenList = data[0].tokenList;
+            localStorage.setItem('tokenList', data[0].tokenList);
+          }
           this.favorites = data;
         });
       }

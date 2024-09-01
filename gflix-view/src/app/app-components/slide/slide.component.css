@@ -1,0 +1,14 @@
+.header {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+
+  h4 {
+    margin: 20px 25px 0px 0px;
+    color: #bfbfbf;
+  }
+
+  h4:hover{
+    text-decoration: underline rgba(255, 0, 0, 0.61);
+  }
+}

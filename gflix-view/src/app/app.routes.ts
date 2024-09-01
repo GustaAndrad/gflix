@@ -12,8 +12,8 @@ import { TvShowsComponent } from './app-views/tvShows/tvShows.component';
 export const routes: Routes = [
   { path: '', canActivate: [AuthGuardService], component: HomeComponent },
   { path: 'home', canActivate: [AuthGuardService], component: HomeComponent },
-  { path: 'movies', canActivate: [AuthGuardService], component: MoviesComponent },
-  { path: 'tvShows', canActivate: [AuthGuardService], component: TvShowsComponent },
+  { path: 'filmes', canActivate: [AuthGuardService], component: MoviesComponent },
+  { path: 'series', canActivate: [AuthGuardService], component: TvShowsComponent },
   { path: 'myList', canActivate: [AuthGuardService], component: MyListComponent },
   { path: 'sharedList/:tokenList', component: MyListComponent },
   { path: 'logout', canActivate: [AuthGuardService], component: LoginComponent },

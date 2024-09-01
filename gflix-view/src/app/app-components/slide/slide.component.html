@@ -1,4 +1,7 @@
-<h2 appAppearOnScroll>{{this.titulo}}</h2>
+<div class="header">
+  <h2 appAppearOnScroll>{{this.titulo}}</h2>
+  <h4><a href="{{this.titulo.toLowerCase()}}">Ver todos</a></h4>
+</div>
 <swiper-container appAppearRightOnScroll class="mySwiper" pagination="false" space-between="7" [slidesPerView]="7"
 [breakpoints]="breakpoints">
   <swiper-slide *ngFor="let midia of this.midias; let i = index">

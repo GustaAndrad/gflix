@@ -38,28 +38,26 @@ public class GflixController {
     public ResponseEntity<Object> getMyList(@RequestParam(required = false) UUID tokenList, @RequestParam(required = false) String userId) {
         try {
             List<Object> favoritos = new ArrayList<>();
-            if (tokenList != null) {
-                List<MyList> myLists = listService.findAllByTokenListOrUserId(tokenList, userId);
-                for (MyList myList : myLists) {
-                    Long movieId = myList.getMovieId();
-                    Long tvShowId = myList.getTVShowId();
-                    if (movieId != null) {
-                        JSONObject movieJson = tmdbService.getMovieById(movieId);
-                        MovieDTO movieDTO = MovieMapper.jsonToMovieDTO(movieJson, null, true);
-                        favoritos.add(movieDTO);
-                    } else {
-                        JSONObject tvJson = tmdbService.getTvShowById(tvShowId);
-                        TVShowsDTO tvShowsDTO = TVShowMapper.jsonToTVShowsDTO(tvJson, null, true);
-                        favoritos.add(tvShowsDTO);
-                    }
 
+            List<MyList> myLists = listService.findAllByTokenListOrUserId(tokenList, userId);
+            for (MyList myList : myLists) {
+                Long movieId = myList.getMovieId();
+                Long tvShowId = myList.getTVShowId();
+                if (movieId != null) {
+                    JSONObject movieJson = tmdbService.getMovieById(movieId);
+                    MovieDTO movieDTO = MovieMapper.jsonToMovieDTO(movieJson, null, true);
+                    movieDTO.setTokenList(myList.getTokenList());
+                    favoritos.add(movieDTO);
+                } else {
+                    JSONObject tvJson = tmdbService.getTvShowById(tvShowId);
+                    TVShowsDTO tvShowsDTO = TVShowMapper.jsonToTVShowsDTO(tvJson, null, true);
+                    tvShowsDTO.setTokenList(myList.getTokenList());
+                    favoritos.add(tvShowsDTO);
                 }
-                return ResponseEntity.status(HttpStatus.OK).body(favoritos);
-            } else if (userId != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(listService.findAllByUserId(userId));
-            }
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Nenhum parametro informado");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(favoritos);
+
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Erro ao buscar sua lista");

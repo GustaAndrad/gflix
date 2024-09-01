@@ -3,6 +3,7 @@ package com.glix.gflixwebservice.dtos;
 import com.glix.gflixwebservice.enums.Tipo;
 
 import java.util.List;
+import java.util.UUID;
 
 public class MovieDTO {
 
@@ -14,6 +15,7 @@ public class MovieDTO {
     private List<String> generos;
     private boolean favorite;
     private Tipo tipo;
+    private UUID tokenList;
 
 
     public MovieDTO() {
@@ -92,6 +94,14 @@ public class MovieDTO {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public UUID getTokenList() {
+        return tokenList;
+    }
+
+    public void setTokenList(UUID tokenList) {
+        this.tokenList = tokenList;
     }
 
     @Override

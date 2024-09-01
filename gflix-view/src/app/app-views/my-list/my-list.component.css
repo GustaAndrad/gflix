@@ -22,7 +22,7 @@
 .card img {
   display: block;
   width: auto;
-  height: 490px;
+  height: 420px;
   object-fit: cover;
   border-radius: 10px;
   cursor: pointer;

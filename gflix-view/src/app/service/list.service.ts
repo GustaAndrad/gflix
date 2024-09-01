@@ -22,7 +22,7 @@ export class ListService {
     return firstValueFrom(this.http.delete(this.API + "deleteItemList", options));
   }
 
-  getFavorites(uid: any, tokenList: any): Promise<any> {
+  getFavorites(uid: any, tokenList: string): Promise<any> {
     return firstValueFrom(this.http.get(this.API + "myList?tokenList=" + tokenList + "&userId=" + uid));
   }
 }
