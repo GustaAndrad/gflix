@@ -4,11 +4,12 @@ import { LoginService } from '../service/login.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   providers: [LoginService],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
@@ -20,6 +21,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   isScrolled = false;
   user: any;
+  searchQuery: string = '';
   private authSubscription!: Subscription;
 
   constructor(private loginService: LoginService, private route: Router, private authService: AuthService) { }
@@ -57,5 +59,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.authService.clearUser();
     this.route.navigate(['login']);
   }
-
+  onSearch() {
+    console.log('Procurando por:', this.searchQuery);
+  }
 }

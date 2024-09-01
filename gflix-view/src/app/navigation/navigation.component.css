@@ -149,3 +149,13 @@ i:hover {
 .user-menu:hover .user-menu-content {
   display: block;
 }
+
+.dropdown-menu {
+  left: -110px !important;
+}
+
+@media (max-width: 991px) {
+  .dropdown-menu {
+    left: 0px !important;
+  }
+}

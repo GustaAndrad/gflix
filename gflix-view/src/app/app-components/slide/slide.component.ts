@@ -5,12 +5,13 @@ import { DirectivesModule } from '../../directives/directivesModule.module';
 import { ListService } from '../../service/list.service';
 import { GflixService } from '../../service/gflix.service';
 import { ModalDetailsComponent } from '../modal-details/modal-details.component';
+import { SwiperOptions } from 'swiper/types';
 
 
 @Component({
   selector: 'app-slide',
   standalone: true,
-  imports: [CommonModule, DirectivesModule, ModalDetailsComponent],
+  imports: [CommonModule, DirectivesModule, ModalDetailsComponent,],
   providers: [ListService, GflixService],
   templateUrl: './slide.component.html',
   styleUrls: ['./slide.component.css'],
@@ -24,6 +25,24 @@ export class SlideComponent implements OnInit {
   midiaDetails: any;
 
   uid = localStorage.getItem('uid');
+
+  breakpoints: SwiperOptions['breakpoints'] = {
+    320: {
+      slidesPerView: 3.2,
+    },
+    480: {
+      slidesPerView: 4.5,
+    },
+    768: {
+      slidesPerView: 4.5,
+    },
+    1024: {
+      slidesPerView: 5.5,
+    },
+    1440: {
+      slidesPerView: 8.5,
+    }
+  } || 3.5;
 
   constructor(private listService: ListService, private gflixService: GflixService) { }
 
