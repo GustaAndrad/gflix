@@ -63,10 +63,18 @@
     margin: 0px;
   }
 
-  .content{
+  .content {
     gap: 7px;
   }
-  .header{
+
+  .header {
     margin-left: 20px;
   }
+}
+
+@media (max-width: 410px) {
+  .card img {
+    height: 250px;
+  }
+
 }

@@ -19,7 +19,6 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "*")
 public class TMDBController {
 
     private final TMDBService tmdbService;

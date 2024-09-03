@@ -25,7 +25,6 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/gflix")
-@CrossOrigin(origins = "*")
 public class GflixController {
 
     @Autowired

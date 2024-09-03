@@ -8,7 +8,13 @@
     color: #bfbfbf;
   }
 
-  h4:hover{
+  h4:hover {
     text-decoration: underline rgba(255, 0, 0, 0.61);
+  }
+}
+
+@media (max-width: 768px) {
+  .genres {
+    display: none;
   }
 }
