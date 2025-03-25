@@ -19,9 +19,8 @@
 
 [https://gflixview.vercel.app](https://gflixview.vercel.app)
 
-login de teste > usuario@teste.com - senha: usuario
 
-\*obs : alguns itens no menu, como links do footer e botão de cadastro ainda não foi implementado, utilizar apenas login de teste.
+\*obs : alguns itens no menu, como links do footer e botão de cadastro ainda não foi implementado.
 
 <div id="installation"></div>
 <h2>🛠️ Installation Steps:</h2>
